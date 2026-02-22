@@ -19,29 +19,29 @@ export default function FAQ() {
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <section id="faq" className="py-16 lg:py-24 relative">
-      <div ref={ref} className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className={`text-center mb-12 reveal ${inView ? 'visible' : ''}`}>
+    <section id="faq" className="py-12 sm:py-16 lg:py-24 relative">
+      <div ref={ref} className="max-w-3xl mx-auto px-5 sm:px-6">
+        <div className={`text-center mb-8 sm:mb-12 reveal ${inView ? 'visible' : ''}`}>
           <p className="section-label justify-center">FAQs</p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-bold mb-4">
+          <h2 className="font-heading text-2xl sm:text-4xl lg:text-[2.75rem] font-bold mb-3 sm:mb-4">
             Common <span className="gradient-text">Questions</span>
           </h2>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5 sm:space-y-3">
           {faqs.map((faq, i) => (
             <div
               key={i}
               className={`glass-card !rounded-xl overflow-hidden transition-all duration-300 reveal ${inView ? 'visible' : ''} ${openIndex === i ? '!border-accent/30' : ''}`}
               style={{ transitionDelay: `${i * 0.05 + 0.1}s` }}
             >
-              <button onClick={() => toggle(i)} className="w-full flex items-center gap-3 p-4 text-left">
-                <HelpCircle className={`w-5 h-5 flex-shrink-0 transition-colors ${openIndex === i ? 'text-accent' : 'text-text-secondary'}`} />
-                <span className="font-heading font-semibold text-sm flex-1">{faq.q}</span>
-                <ChevronDown className={`w-5 h-5 text-accent flex-shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180' : ''}`} />
+              <button onClick={() => toggle(i)} className="w-full flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-4 text-left">
+                <HelpCircle className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 transition-colors ${openIndex === i ? 'text-accent' : 'text-text-secondary'}`} />
+                <span className="font-heading font-semibold text-[13px] sm:text-sm flex-1 leading-snug">{faq.q}</span>
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180' : ''}`} />
               </button>
               <div className={`transition-all duration-300 ${openIndex === i ? 'max-h-60' : 'max-h-0'} overflow-hidden`}>
-                <p className="px-4 pb-4 pl-12 text-text-secondary text-sm leading-relaxed">{faq.a}</p>
+                <p className="px-3.5 pb-3.5 pl-10 sm:px-4 sm:pb-4 sm:pl-12 text-text-secondary text-xs sm:text-sm leading-relaxed">{faq.a}</p>
               </div>
             </div>
           ))}

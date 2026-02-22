@@ -1,6 +1,7 @@
 ﻿import { CalendarCheck, PhoneCall, UserCheck, Clock, MapPin, Phone, Send } from 'lucide-react';
 import { useState } from 'react';
 import { useInView } from '../hooks/useAnimations';
+import appointmentImg from '../assets/pexels-davegarcia-33904813.jpg';
 
 const steps = [
   { icon: Send, title: 'Submit Request', desc: 'Fill in the form with your details' },
@@ -19,35 +20,44 @@ export default function Appointment() {
   const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-colors';
 
   return (
-    <section id="appointment" className="py-16 lg:py-24 relative">
-      <div className="absolute bottom-0 right-[-80px] w-[500px] h-[500px] bg-accent/5 rounded-full blur-[140px] -z-10" />
+    <section id="appointment" className="py-12 sm:py-16 lg:py-24 relative">
+      <div className="absolute bottom-0 right-[-80px] w-[400px] h-[400px] bg-accent/4 rounded-full blur-[60px] -z-10" />
 
-      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div ref={ref} className="max-w-7xl mx-auto px-5 sm:px-6">
         {/* Header */}
-        <div className={`text-center max-w-2xl mx-auto mb-10 reveal ${inView ? 'visible' : ''}`}>
+        <div className={`text-center max-w-2xl mx-auto mb-8 sm:mb-10 reveal ${inView ? 'visible' : ''}`}>
           <p className="section-label justify-center">Book an Appointment</p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.75rem] font-bold mb-4">
+          <h2 className="font-heading text-2xl sm:text-4xl lg:text-[2.75rem] font-bold mb-3 sm:mb-4">
             Your <span className="gradient-text">Clear Vision</span> Journey Starts Here
           </h2>
         </div>
 
         {/* 3-step process */}
-        <div className={`grid sm:grid-cols-3 gap-4 mb-12 reveal ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
+        <div className={`grid grid-cols-3 gap-2 sm:gap-4 mb-8 sm:mb-12 reveal ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
           {steps.map((s, i) => (
-            <div key={s.title} className="glass-accent p-5 text-center relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-accent text-bg-primary text-xs font-bold flex items-center justify-center">
+            <div key={s.title} className="glass-accent p-3 sm:p-5 text-center relative">
+              <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-accent text-bg-primary text-[10px] sm:text-xs font-bold flex items-center justify-center">
                 {i + 1}
               </div>
-              <s.icon className="w-6 h-6 text-accent mx-auto mb-2 mt-2" />
-              <h4 className="font-heading font-bold text-sm mb-1">{s.title}</h4>
-              <p className="text-text-secondary text-xs">{s.desc}</p>
+              <s.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent mx-auto mb-1.5 sm:mb-2 mt-2" />
+              <h4 className="font-heading font-bold text-xs sm:text-sm mb-0.5 sm:mb-1">{s.title}</h4>
+              <p className="text-text-secondary text-[10px] sm:text-xs hidden sm:block">{s.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
           {/* Left info */}
-          <div className={`space-y-6 reveal-left ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.2s' }}>
+          <div className={`space-y-4 sm:space-y-6 reveal-left ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.2s' }}>
+            {/* Clinic image */}
+            <div className="relative rounded-2xl overflow-hidden group">
+              <img
+                src={appointmentImg}
+                alt="Professional eye consultation at ClearVision"
+                className="w-full h-40 sm:h-48 object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 via-transparent to-transparent rounded-2xl" />
+            </div>
             <div>
               <h3 className="font-heading text-xl font-bold mb-3">Why Visit ClearVision?</h3>
               <ul className="space-y-3 text-text-secondary text-sm">
@@ -79,7 +89,7 @@ export default function Appointment() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className={`glass-card !p-7 space-y-4 reveal-right ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
+          <form onSubmit={handleSubmit} className={`glass-card !p-5 sm:!p-7 space-y-3 sm:space-y-4 reveal-right ${inView ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
             {submitted ? (
               <div className="text-center py-10">
                 <div className="w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center mx-auto mb-4">

@@ -12,11 +12,11 @@ import WhatsAppButton from './components/WhatsAppButton';
 function App() {
   return (
     <div className="w-full min-h-screen text-text-primary overflow-x-hidden relative">
-      {/* Persistent decorative orbs for glassmorphism depth */}
+      {/* Persistent decorative orbs — static (no animation) for minimal GPU cost */}
       <div className="fixed inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full bg-accent/[0.07] blur-[120px] animate-float" />
-        <div className="absolute top-[40%] right-[5%] w-[400px] h-[400px] rounded-full bg-teal-400/[0.04] blur-[100px] animate-float" style={{ animationDelay: '3s' }} />
-        <div className="absolute top-[70%] left-[30%] w-[600px] h-[600px] rounded-full bg-accent/[0.04] blur-[140px] animate-float" style={{ animationDelay: '5s' }} />
+        <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full bg-accent/[0.06] blur-[80px]" />
+        <div className="absolute top-[40%] right-[5%] w-[400px] h-[400px] rounded-full bg-teal-400/[0.03] blur-[70px]" />
+        <div className="absolute top-[70%] left-[30%] w-[600px] h-[600px] rounded-full bg-accent/[0.03] blur-[80px]" />
       </div>
 
       <Navbar />

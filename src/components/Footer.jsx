@@ -26,10 +26,10 @@ export default function Footer() {
       {/* top gradient line */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 pt-10 sm:pt-14 pb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <a href="#" className="flex items-center gap-2 mb-4 group" onClick={scrollToTop}>
               <div className="w-9 h-9 rounded-xl bg-accent/20 flex items-center justify-center">
                 <Eye className="w-5 h-5 text-accent" />
@@ -121,7 +121,7 @@ export default function Footer() {
       {/* Scroll to top */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-24 right-6 z-40 w-10 h-10 rounded-xl glass flex items-center justify-center text-accent hover:bg-accent/20 transition-all shadow-lg"
+        className="fixed bottom-40 sm:bottom-24 right-5 sm:right-6 z-40 w-9 h-9 sm:w-10 sm:h-10 rounded-xl glass flex items-center justify-center text-accent hover:bg-accent/20 active:scale-95 transition-all shadow-lg"
         aria-label="Scroll to top"
       >
         <ArrowUp className="w-4 h-4" />

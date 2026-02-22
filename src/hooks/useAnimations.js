@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 /**
  * Hook: triggers when element enters viewport
@@ -29,7 +29,8 @@ export function useInView(options = {}) {
 }
 
 /**
- * Hook: animated counter from 0 → target
+ * Hook: animated counter from 0 → target using requestAnimationFrame
+ * (much smoother than setInterval, no jank — batches with browser paint cycle)
  */
 export function useCounter(target, duration = 2000, startCounting = true) {
   const [count, setCount] = useState(0);
@@ -37,33 +38,56 @@ export function useCounter(target, duration = 2000, startCounting = true) {
   useEffect(() => {
     if (!startCounting) return;
 
-    let start = 0;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
+    let rafId;
+    let startTime;
 
-    return () => clearInterval(timer);
+    function tick(now) {
+      if (!startTime) startTime = now;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out quad for smooth deceleration
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const value = Math.floor(eased * target);
+
+      setCount(value);
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        setCount(target);
+      }
+    }
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [target, duration, startCounting]);
 
   return count;
 }
 
 /**
- * Hook: typewriter text effect
+ * Hook: typewriter text effect (pauses when tab is hidden to save CPU)
  */
 export function useTypewriter(texts, typingSpeed = 80, deletingSpeed = 40, pauseDuration = 2000) {
   const [displayText, setDisplayText] = useState('');
   const [textIndex, setTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const isVisible = useRef(true);
+
+  // Pause when tab is hidden
+  useEffect(() => {
+    const onVisChange = () => { isVisible.current = !document.hidden; };
+    document.addEventListener('visibilitychange', onVisChange);
+    return () => document.removeEventListener('visibilitychange', onVisChange);
+  }, []);
 
   useEffect(() => {
+    if (!isVisible.current) {
+      // re-check in 500ms instead of running the loop
+      const id = setTimeout(() => setDisplayText((t) => t), 500);
+      return () => clearTimeout(id);
+    }
+
     const currentText = texts[textIndex];
 
     const timeout = setTimeout(() => {

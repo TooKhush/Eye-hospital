@@ -105,26 +105,34 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden transition-all duration-400 overflow-hidden ${
-            open ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+          className={`lg:hidden transition-all duration-500 overflow-hidden ${
+            open ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="bg-bg-primary/98 backdrop-blur-xl border-t border-white/5 px-4 py-3 space-y-1">
+          <div className="bg-bg-primary/98 backdrop-blur-xl border-t border-white/5 px-5 py-4 space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-white/5 transition-all text-sm"
+                className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-white/5 active:bg-white/10 transition-all text-[15px] font-medium"
               >
                 {link.label}
               </a>
             ))}
-            <div className="pt-2 pb-1">
+            {/* Mobile phone + CTA */}
+            <div className="pt-3 space-y-2.5 border-t border-white/5 mt-2">
+              <a
+                href="tel:+1234567890"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-white/10 text-text-secondary hover:text-accent transition-colors text-sm font-medium"
+              >
+                <Phone className="w-4 h-4" /> +1 (234) 567-890
+              </a>
               <a
                 href="#appointment"
                 onClick={() => setOpen(false)}
-                className="btn-accent w-full justify-center"
+                className="btn-accent w-full justify-center !text-sm"
               >
                 Book Appointment
               </a>
